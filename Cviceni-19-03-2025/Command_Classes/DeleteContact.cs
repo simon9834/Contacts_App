@@ -1,36 +1,38 @@
-﻿
-public class DeleteContact : ICommand
+﻿namespace Cviceni_19_03_2025.Command_Classes
 {
-    private List<Contact> contacts;
-
-    public DeleteContact(List<Contact> contacts)
+    public class DeleteContact : ICommand
     {
-        this.contacts = contacts;
-    }
+        private List<Contact> contacts;
 
-    public void Execute()
-    {
-        Console.Clear();
-        Console.WriteLine("Write ur contacts name: ");
-        string name = Console.ReadLine();
-        foreach (Contact contact in contacts)
+        public DeleteContact(List<Contact> contacts)
         {
-            if(string.Equals(name, contact.name, StringComparison.OrdinalIgnoreCase))
+            this.contacts = contacts;
+        }
+
+        public void Execute()
+        {
+            Console.Clear();
+            Console.WriteLine("Write ur contacts name: ");
+            string name = Console.ReadLine();
+            foreach (Contact contact in contacts)
             {
-                contacts.Remove(contact);
-                Console.BackgroundColor = ConsoleColor.Green;
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.WriteLine("contact removed!");
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.WriteLine("Contact not found..");
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
+                if (string.Equals(name, contact.name, StringComparison.OrdinalIgnoreCase))
+                {
+                    contacts.Remove(contact);
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("contact removed!");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("Contact not found..");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
         }
     }

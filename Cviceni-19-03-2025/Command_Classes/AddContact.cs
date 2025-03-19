@@ -1,4 +1,5 @@
-﻿
+﻿namespace Cviceni_19_03_2025.Command_Classes{
+
 public class AddContact : ICommand
 {
     private List<Contact> contacts;
@@ -43,4 +44,5 @@ public class AddContact : ICommand
         Console.BackgroundColor = ConsoleColor.Black;
         Console.ForegroundColor = ConsoleColor.White;
     }
+}
 }
