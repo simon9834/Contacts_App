@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cviceni_19_03_2025
+﻿
+public class MenuItem
 {
-    internal class MenuItem
+    public string text {  get; private set; }
+    private ICommand command;
+
+    public MenuItem(string text, ICommand command)
     {
+        this.text = text;
+        this.command = command;
+    }
+    public void SelectCommand()
+    {
+        command.Execute();
     }
 }
