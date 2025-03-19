@@ -3,7 +3,7 @@
     public class DeleteContact : ICommand
     {
         private List<Contact> contacts;
-
+        ResetColor rc = new ResetColor();
         public DeleteContact(List<Contact> contacts)
         {
             this.contacts = contacts;
@@ -11,28 +11,49 @@
 
         public void Execute()
         {
-            Console.Clear();
-            Console.WriteLine("Write ur contacts name: ");
-            string name = Console.ReadLine();
-            foreach (Contact contact in contacts)
+            rc.resetConsoleColor();
+            if (contacts.Count != 0)
             {
-                if (string.Equals(name, contact.name, StringComparison.OrdinalIgnoreCase))
+                Console.Clear();
+                rc.usrCommandsConsoleColor();
+                Console.Write("Write ur contacts name: ");
+                rc.usrInputConsoleColor();
+                string name = Console.ReadLine();
+                bool contactFound = false;
+
+                foreach (Contact contact in contacts)
                 {
-                    contacts.Remove(contact);
-                    Console.BackgroundColor = ConsoleColor.Green;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.WriteLine("contact removed!");
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.White;
+                    if (string.Equals(name, contact.name, StringComparison.OrdinalIgnoreCase))
+                    {
+                        contacts.Remove(contact);
+                        rc.resetConsoleColor();
+                        Console.Clear();
+                        rc.approvedConsoleColor();
+                        Console.WriteLine("contact removed!");
+                        Thread.Sleep(2000);
+                        rc.resetConsoleColor();
+                        contactFound = true;
+                        Console.Clear();
+                        break;
+                    }
                 }
-                else
+                if (!contactFound)
                 {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    rc.warningConsoleColor();
                     Console.WriteLine("Contact not found..");
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Thread.Sleep(2000);
+                    rc.resetConsoleColor();
+                    Console.Clear();
                 }
+            }
+            else
+            {
+                Console.Clear();
+                rc.warningConsoleColor();
+                Console.WriteLine("You didnt add any contacts yet..");
+                Thread.Sleep(2000);
+                rc.resetConsoleColor();
+                Console.Clear();
             }
         }
     }

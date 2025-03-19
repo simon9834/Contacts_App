@@ -1,48 +1,61 @@
-﻿namespace Cviceni_19_03_2025.Command_Classes{
-
-public class AddContact : ICommand
+﻿namespace Cviceni_19_03_2025.Command_Classes
 {
-    private List<Contact> contacts;
 
-    public AddContact(List<Contact> contacts)
+    public class AddContact : ICommand
     {
-        this.contacts = contacts;
-    }
-    public void Execute()
-    {
-        Console.Clear();
-        Console.BackgroundColor = ConsoleColor.Cyan;
-        Console.ForegroundColor = ConsoleColor.Black;
-        Console.Write("Name ur contact: ");
-        string name = Console.ReadLine();
-        Console.WriteLine();
-        Console.Write("Write ur contact's number: ");
-        string number = Console.ReadLine();
-        Console.WriteLine();
-        Console.Write("Write ur contact's email: ");
-        string email = Console.ReadLine();
-        Console.Clear();
-        foreach (var contact in contacts)
+        ResetColor rc = new ResetColor();
+        private List<Contact> contacts;
+
+        public AddContact(List<Contact> contacts)
         {
-            if (contact.name.Equals(name, StringComparison.OrdinalIgnoreCase) ||
-                contact.phoneNum.Equals(number, StringComparison.OrdinalIgnoreCase) ||
-                contact.email.Equals(email, StringComparison.OrdinalIgnoreCase))
-            {
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.WriteLine();
-                Console.WriteLine("Duplicate contact found! This contact already exists.");
-                Console.WriteLine();
-            }
+            this.contacts = contacts;
         }
+        public void Execute()
+        {
+            rc.resetConsoleColor();
+            Console.Clear();
+            rc.usrCommandsConsoleColor();
+            Console.Write("Name ur contact:");
+            rc.usrInputConsoleColor();
+            string name = Console.ReadLine();
 
-        contacts.Add(new Contact(name, number, email));
+            Console.WriteLine();
 
-        Console.BackgroundColor = ConsoleColor.Green;
-        Console.ForegroundColor = ConsoleColor.Black;
-        Console.WriteLine("Contact added!");
-        Console.BackgroundColor = ConsoleColor.Black;
-        Console.ForegroundColor = ConsoleColor.White;
+            rc.usrCommandsConsoleColor();
+            Console.Write("Write ur contact's number:");
+            rc.usrInputConsoleColor();
+            string number = Console.ReadLine();
+
+            Console.WriteLine();
+
+            rc.usrCommandsConsoleColor();
+            Console.Write("Write ur contact's email:");
+            rc.usrInputConsoleColor();
+            string email = Console.ReadLine();
+            rc.resetConsoleColor();
+
+            Console.Clear();
+
+            foreach (var contact in contacts)
+            {
+                if (contact.name.Equals(name, StringComparison.OrdinalIgnoreCase) ||
+                    contact.phoneNum.Equals(number, StringComparison.OrdinalIgnoreCase) ||
+                    contact.email.Equals(email, StringComparison.OrdinalIgnoreCase))
+                {
+                    rc.warningConsoleColor();
+                    Console.WriteLine();
+                    Console.WriteLine("Duplicate contact found! This contact already exists.");
+                    Console.WriteLine();
+                }
+            }
+
+            contacts.Add(new Contact(name, number, email));
+
+            rc.approvedConsoleColor();
+            Console.WriteLine("Contact added!");
+            Thread.Sleep(2000);
+            rc.resetConsoleColor();
+            Console.Clear();
+        }
     }
-}
 }

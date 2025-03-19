@@ -2,6 +2,7 @@
 {
     public class ShowContacts : ICommand
     {
+        ResetColor rc = new ResetColor();
         private List<Contact> contacts;
 
         public ShowContacts(List<Contact> contacts)
@@ -10,22 +11,25 @@
         }
         public void Execute()
         {
+            rc.resetConsoleColor();
             Console.Clear();
             if (contacts.Count != 0)
             {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.Yellow;
+                rc.usrInputConsoleColor();
                 foreach (Contact contact in contacts)
                 {
                     Console.WriteLine(contact);
                 }
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Black;
+                Console.WriteLine();
+                rc.resetConsoleColor();
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("You dont have any contacts yet");
+                Console.Clear();
+                rc.warningConsoleColor();
+                Console.WriteLine("You dont have any contacts yet..");
+                Console.WriteLine();
+                rc.resetConsoleColor();
             }
         }
     }
