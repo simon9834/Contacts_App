@@ -15,13 +15,20 @@
             Console.Clear();
             if (contacts.Count != 0)
             {
+                int number = 0;
                 rc.usrInputConsoleColor();
                 foreach (Contact contact in contacts)
                 {
-                    Console.WriteLine(contact);
+                    number++;
+                    Console.WriteLine($"{number}. {contact}");
                 }
                 Console.WriteLine();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("(type anything to get back to menu)");
+                Console.ReadKey();
                 rc.resetConsoleColor();
+                Console.Clear();
             }
             else
             {
