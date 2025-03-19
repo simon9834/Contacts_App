@@ -10,6 +10,28 @@ public class DeleteContact : ICommand
 
     public void Execute()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        Console.WriteLine("Write ur contacts name: ");
+        string name = Console.ReadLine();
+        foreach (Contact contact in contacts)
+        {
+            if(string.Equals(name, contact.name, StringComparison.OrdinalIgnoreCase))
+            {
+                contacts.Remove(contact);
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("contact removed!");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("Contact not found..");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
     }
 }

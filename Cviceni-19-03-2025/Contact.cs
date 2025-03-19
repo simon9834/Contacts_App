@@ -1,9 +1,9 @@
 ﻿
 public class Contact
 {
-    private string name;
-    private string phoneNum;
-    private string email;
+    public string name {  get; set; }
+    public string phoneNum { get; set; }
+    public string email { get; set; }
 
     public Contact(string name, string phoneNum, string email)
     {
